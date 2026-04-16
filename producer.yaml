@@ -23,5 +23,5 @@ spec:
             echo "event-$(date)" | /opt/kafka/bin/kafka-console-producer.sh \
               --bootstrap-server kafka:9092 \
               --topic test-topic;
-            sleep 5;
+            sleep 1;
           done
