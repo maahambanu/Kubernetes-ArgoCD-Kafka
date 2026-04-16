@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+      - name: consumer
+        image: apache/kafka:4.1.2
+        command:
+        - /bin/bash
+        - -c
+        - |
+          /opt/kafka/bin/kafka-console-consumer.sh \
+            --bootstrap-server kafka:9092 \
+            --topic test-topic \
+            --from-beginning

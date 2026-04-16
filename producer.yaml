@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer
+  template:
+    metadata:
+      labels:
+        app: producer
+    spec:
+      containers:
+      - name: producer
+        image: apache/kafka:4.1.2
+        command:
+        - /bin/bash
+        - -c
+        - |
+          while true; do
+            echo "event-$(date)" | /opt/kafka/bin/kafka-console-producer.sh \
+              --bootstrap-server kafka:9092 \
+              --topic test-topic;
+            sleep 5;
+          done
